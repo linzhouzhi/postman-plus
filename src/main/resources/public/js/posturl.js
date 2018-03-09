@@ -38,9 +38,11 @@ function  getPostHistory() {
 }
 
 function json_check() {
+    var res = true;
     var value = $('[name="request-body"]').val();
     var res = isJson( value );
     if( res == false ){
+        res = false;
         $("#show-result").html("#json param format is error");
     }else{
         var con = $("#show-result").text();
@@ -48,8 +50,12 @@ function json_check() {
             $("#show-result").empty();
         }
     }
+    return res;
 }
 $("#post-url").click(function () {
+    if( !json_check() ){
+        return;
+    }
     var data={};
     data.type = $("#post-type").text();
     data.url = $('[name="request-url"]').val();
