@@ -46,6 +46,15 @@
         ul#tab-list > li.li-active{
             background-color: #00a65a;
         }
+        li > a.tab-link{
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap
+            width:200px;
+        }
+        .pointer{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -53,7 +62,7 @@
 
     <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="/postman" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>P</b>ost</span>
             <!-- logo for regular state and mobile devices -->
@@ -71,27 +80,17 @@
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-            <ul class="sidebar-menu">
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>save-url</span>
-                        <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a data-url="http://localhost:8080/posturl" class="tab-link"><i class="fa fa-circle-o"></i> baidu.com</a></li>
-                    </ul>
-                </li>
+            <ul class="sidebar-menu" id="url-list-menu">
+
                 <li class="active treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>history</span>
+                        <i class="fa fa-history"></i> <span>history</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu" id="tab-list-history">
-                        <li><a data-url="http://localhost:8080/posturl" class="tab-link"><i class="fa fa-circle-o"></i> baidu.com</a></li>
+                        <li><a data-url="/posturl" class="tab-link"><i class="fa fa-circle-o"></i> baidu.com</a></li>
                     </ul>
                 </li>
             </ul>
@@ -112,6 +111,26 @@
     </div>
 </div>
 <!-- ./wrapper -->
+
+
+<!-- delete flow chart modal -->
+<div id="delete-url-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete Url</h4>
+            </div>
+            <div class="modal-body">
+                confirm delete
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-danger" data-url="" id="modal-confirm-delete">Delete</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- jQuery 2.2.3 -->
 <script src="../jquery/jquery-2.2.3.min.js"></script>

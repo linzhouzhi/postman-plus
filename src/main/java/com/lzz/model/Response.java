@@ -6,12 +6,22 @@ package com.lzz.model;
 public class Response {
     private int code;
     private String msg;
+    private Object res;
 
     public Response(int code, String msg){
         this.code = code;
         this.msg = msg;
     }
 
+    public Response(int code, Object o, String msg){
+        this.code = code;
+        this.res = o;
+        this.msg = msg;
+    }
+
+    public static Response Obj(int code, Object res){
+        return new Response(code, res, null );
+    }
     public static Response OK(){
         return new Response(0, "success");
     }
@@ -34,5 +44,13 @@ public class Response {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public Object getRes() {
+        return res;
+    }
+
+    public void setRes(Object res) {
+        this.res = res;
     }
 }

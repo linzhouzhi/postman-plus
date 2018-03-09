@@ -3,6 +3,23 @@
  */
 
 $(document).ready(function () {
+    $.get("/url-group", function (obj) {
+        var resMap = obj.res;
+        for (var key in resMap){
+            var li_str = '<li class="treeview"><a href="#"><i class="fa fa-group"></i> <span>' + key + '</span>';
+            li_str += '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
+            li_str += '<ul class="treeview-menu">';
+            var list = resMap[ key ];
+            for(var i = 0; i < list.length; i++){
+                li_str += '<li><a data-url="/posturl?q=' + list[i].showName + '"class="tab-link"><i class="fa fa-remove remove-url pointer" data-name="' + list[i]["showName"] + '"></i> ' + list[i]["showName"]+ '</a></li>';
+            }
+            li_str += '<ul class="treeview-menu">';
+            li_str += '</ul></li>';
+            $("#url-list-menu").prepend( li_str );
+        }
+
+    });
+
     try {
         var hisotry_str = get_cookie("post_history");
         var history_list = [];
@@ -11,14 +28,29 @@ $(document).ready(function () {
         }
         history_list.forEach(function (value, index) {
             var urlobj = JSON.parse(value);
-            var liurl = '<li><a data-url="/posturl?q=' + urlobj.requet_url + '" class="tab-link"><i class="fa fa-circle-o"></i>' + urlobj.requet_url + '</a></li>';
-            $("#tab-list-history").append(liurl);
+            var liurl = '<li><a data-url="/posturl?q=' + urlobj.url + '" class="tab-link"><i class="fa fa-circle-o"></i>' + urlobj.url + '</a></li>';
+            $("#tab-list-history").prepend(liurl);
         });
     }catch (err){
         console.log(err);
     }
     var tarurl = getQueryString("q");
     $('[data-url="/posturl?q=' + tarurl + '"]').trigger("click");
+});
+
+$(document).on("click", ".remove-url", function () {
+    var showName = $(this).data("name");
+    $("#modal-confirm-delete").data("url", "/remove-url?showName=" + showName);
+    $('#delete-url-modal').modal('show');
+});
+
+
+$("#modal-confirm-delete").click(function () {
+    var url = $(this).data("url");
+    $.get(url, function (res) {
+        console.log(res);
+        window.location.reload();
+    });
 });
 
 var $ = jQuery.noConflict();
